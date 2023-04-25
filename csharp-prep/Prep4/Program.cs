@@ -16,6 +16,16 @@ class Program
         Console.WriteLine(Average);
         Console.Write("The largest number is: ");
         Console.WriteLine(LargestNumber);
+
+        int SmallestPositiveNumber = GetSmallestPositiveNumber(UserNumbers);
+        Console.Write("The smallest positive number is: ");
+        Console.WriteLine(SmallestPositiveNumber);
+        UserNumbers.Sort();
+        Console.WriteLine("The sorted list is: ");
+        foreach(int UserNumber in UserNumbers)
+        {
+            Console.WriteLine(UserNumber);
+        }
     }
 
     static int GetUserNumber(string Message)
@@ -66,5 +76,30 @@ class Program
             }
         }
         return LargestNumber;
+    }
+
+    static int GetSmallestPositiveNumber(List<int> UserNumbers)
+    {
+        int SmallestPositiveNumber = UserNumbers[0];
+
+        foreach(int UserNumber in UserNumbers)
+        {
+            if (UserNumber > 0)
+            {
+                if (UserNumber < SmallestPositiveNumber)
+                {
+                    SmallestPositiveNumber = UserNumber;
+                }
+                if (SmallestPositiveNumber < 0)
+                {
+                    SmallestPositiveNumber = UserNumber;
+                }
+            } 
+        }
+        if (SmallestPositiveNumber < 0)
+        {
+            SmallestPositiveNumber = 0;
+        }
+        return SmallestPositiveNumber;
     }
 }
