@@ -14,11 +14,7 @@ class Program
             MaxNumber = GetUserNumber("What is the max number that can be chosen by the AI: ");
             ChosenNumber = GetNumber(randomGenerator, MaxNumber);
             AttemptsNumber = GameplayLoop(ChosenNumber);
-            Console.Write("Congradulations you found the number, ");
-            Console.Write(ChosenNumber);
-            Console.Write(", in ");
-            Console.Write(AttemptsNumber);
-            Console.Write(" attempts."); 
+            Console.WriteLine($"Congradulations your found the number, {ChosenNumber}, in {AttemptsNumber} attempts.");
             UserResponse = GetUserStringLower("Do you want to play again? (Yes/No) ");
         }   while (UserResponse == "yes");
         Console.Write("Have a good day.");

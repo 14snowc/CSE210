@@ -10,16 +10,12 @@ class Program
         int Sum = GetSum(UserNumbers);
         float Average = GetAverage(UserNumbers, Sum);
         int LargestNumber = GetLargestNumber(UserNumbers);
-        Console.Write("The sum is: ");
-        Console.WriteLine(Sum);
-        Console.Write("The Average is: ");
-        Console.WriteLine(Average);
-        Console.Write("The largest number is: ");
-        Console.WriteLine(LargestNumber);
+        Console.WriteLine($"The sum is: {Sum}");
+        Console.WriteLine($"The Average is: {Average}");
+        Console.WriteLine($"The largest number is: {LargestNumber}");
 
         int SmallestPositiveNumber = GetSmallestPositiveNumber(UserNumbers);
-        Console.Write("The smallest positive number is: ");
-        Console.WriteLine(SmallestPositiveNumber);
+        Console.WriteLine($"The smallest positive number is: {SmallestPositiveNumber}");
         UserNumbers.Sort();
         Console.WriteLine("The sorted list is: ");
         foreach(int UserNumber in UserNumbers)
