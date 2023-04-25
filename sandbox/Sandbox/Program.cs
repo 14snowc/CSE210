@@ -4,8 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        string text = "Hello Sandbox world!";
-        text += "\nHow are you today?\nI hope you are doing good.\nLook a smile ^_^ ";
+        string text = Input("Enter first number: ");
         Console.WriteLine(text);
+    }
+
+    static string Input(string text)
+    {
+        Console.Write(text);
+        string user_input = Console.ReadLine();
+        return user_input;
     }
 }
