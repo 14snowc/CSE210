@@ -82,11 +82,7 @@ class Program
         {
             if (UserNumber > 0)
             {
-                if (UserNumber < SmallestPositiveNumber)
-                {
-                    SmallestPositiveNumber = UserNumber;
-                }
-                if (SmallestPositiveNumber < 0)
+                if (UserNumber < SmallestPositiveNumber || SmallestPositiveNumber < 0)
                 {
                     SmallestPositiveNumber = UserNumber;
                 }
