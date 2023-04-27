@@ -56,8 +56,8 @@ class Program
 
     static float GetAverage(List<int> UserNumbers, int Sum)
     {
-        int TotalNumbers = UserNumbers.Count;
-        float Average = Sum / TotalNumbers;
+        float TotalNumbers = UserNumbers.Count;
+        float Average = (float)Sum / TotalNumbers;
         return Average;
     }
     
