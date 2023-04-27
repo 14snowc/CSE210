@@ -26,18 +26,21 @@ class Program
         }   while (UserResponse == "yes");
         Console.Write("Have a good day.");
     }
+
     static string GetUserStringLower(string Message)
     {
         Console.Write(Message);
         string UserInputString = Console.ReadLine();
         return UserInputString.ToLower();
     }
+
     static int GetUserNumber(string Message)
     {
         Console.Write(Message);
         string UserInputString = Console.ReadLine();
         return int.Parse(UserInputString);
     }
+    
     static int GetNumber(Random Generator, int HighestNumber)
     {
         return Generator.Next(1, HighestNumber);
