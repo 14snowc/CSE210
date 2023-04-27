@@ -50,7 +50,7 @@ class Program
         do{
             Attempts += 1;
             UserInputNumber = GetUserNumber("What is your first guess: ");
-            if (Attempts > 0 && Attempts % 5 == 0 && UserInputNumber != ChosenNumber)
+            if (Attempts % 5 == 0 && UserInputNumber != ChosenNumber)
             {
                 AiResponse(Responses, Choice);
             }
