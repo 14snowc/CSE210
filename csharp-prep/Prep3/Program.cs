@@ -16,7 +16,12 @@ class Program
             MaxNumber = GetUserNumber("What is the max number that can be chosen by the AI: ");
             ChosenNumber = GetNumber(randomGenerator, MaxNumber);
             AttemptsNumber = GameplayLoop(ChosenNumber, randomGenerator, Responses);
-            Console.WriteLine($"Congradulations your found the number, {ChosenNumber}, in {AttemptsNumber} attempts.");
+            Console.Write($"Congradulations your found the number, {ChosenNumber}, in {AttemptsNumber} attempt");
+            if (AttemptsNumber > 1)
+            {
+                Console.Write("s");
+            }
+            Console.WriteLine(".");
             UserResponse = GetUserStringLower("Do you want to play again? (Yes/No) ");
         }   while (UserResponse == "yes");
         Console.Write("Have a good day.");
@@ -70,6 +75,7 @@ class Program
         Responses.Add("If it were me I would have gotten the number 12 attempts earlier.");
         Responses.Add("I haven't got all day if you could guess better.");
         Responses.Add("Just so you know the objective is to guess the number I picked, you know that right?");
+        Responses.Add("I hear if you press the big red X in the top right corner you get a hint. ");
         return Responses;
     }
 
