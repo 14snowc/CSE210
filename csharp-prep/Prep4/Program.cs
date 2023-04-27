@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<int> UserNumbers = new List<int>();
+        var UserNumbers = new List<int>();
         UserNumbers = LoopFillListInt(UserNumbers);
         int Sum = GetSum(UserNumbers);
         float Average = GetAverage(UserNumbers, Sum);
