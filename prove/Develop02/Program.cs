@@ -4,11 +4,13 @@ class Program
 {
     static void Main(string[] args)
     {
+        //Create needed classes
         Menu menu = new Menu();
         Journal journal = new Journal();
         PromptGenerator promptGenerator = new PromptGenerator();
         File file = new File();
 
+        //Create any needed variables
         bool inUse = true;
         int userChoice;
         string filename;
@@ -16,6 +18,7 @@ class Program
         string entryPrompt;
         string entryText;
 
+        //Loop until user finishes
         while(inUse)
         {
             Console.WriteLine();
@@ -23,14 +26,13 @@ class Program
             if (userChoice == 1)
             {
                 //Write a new entry
-                Console.Write("Enter the date: ");
-                entryTime = Console.ReadLine();
+                entryTime =  DateTime.Now.ToShortDateString();
 
                 entryPrompt = promptGenerator.getPrompt();
                 Console.WriteLine(entryPrompt);
 
                 Console.Write("-");
-                entryText = Console.ReadLine();
+                entryText = "-" + Console.ReadLine();
 
                 Entry entry = new Entry(entryTime, entryPrompt, entryText);
                 journal.entries.Add(entry);
@@ -66,8 +68,6 @@ class Program
             }
         }
         Console.WriteLine("Goodbye.");
-
-
     }
 }
 
@@ -76,17 +76,18 @@ public class Menu
     public List<string> Options;
 
     public Menu(){
+        //Build the list of options
         Options = new List<string>();
         Options.Add("Write a new entry");
         Options.Add("Display the journal");
         Options.Add("Save the journal to a file");
         Options.Add("Load the journal from a file");
         Options.Add("Quit");
-        
     }
 
     public int MenuMain()
     {
+        //Run through multiple methods
         Console.WriteLine("Would you like to: ");
         displayOptions();
         return getUserChoice();
@@ -94,6 +95,7 @@ public class Menu
 
     public void displayOptions()
     {
+        //Display the options nicely
         int optionNumber = 0;
         foreach(string Option in Options){
             optionNumber += 1;
@@ -103,6 +105,7 @@ public class Menu
 
     public int getUserChoice()
     {
+        //Get the option number from the user
         Console.Write("Please enter a number: ");
         int UserChoice = int.Parse(Console.ReadLine());
         return UserChoice;
@@ -116,6 +119,7 @@ public class PromptGenerator
 
     public PromptGenerator()
     {
+        //Build the list of prompts
         Prompts = new List<string>();
         Prompts.Add("Who was the most interesting person I interacted with today?");
         Prompts.Add("What was the best part of my day?");
@@ -128,6 +132,7 @@ public class PromptGenerator
 
     public string getPrompt()
     {
+        //Selects one random prompt and returns it
         return Prompts[randomChoice.Next(0, Prompts.Count())];
     }
 }
@@ -152,9 +157,9 @@ public class Journal
 
 public class Entry
 {
-    string prompt;
-    string text;
-    string date;
+    public string prompt;
+    public string text;
+    public string date;
     
     public Entry(string dateEntered, string generatedPrompt, string userText)
     {
@@ -165,51 +170,71 @@ public class Entry
 
     public string data()
     {
-        string combinedData = $"{date}\n{prompt}\n-{text}";
+        string combinedData = $"{date};{prompt};{text}";
         return combinedData;
     }
     
     public void display()
     {
         Console.WriteLine();
-        Console.WriteLine(data());
+        Console.WriteLine(data().Replace(";","\n"));
     }
 }
 
 
 public class File
 {
-    StreamReader reader;
-    StreamWriter writer;
-    string line;
-    string lineDate;
-    string linePrompt;
+    // StreamReader reader;
+    // StreamWriter writer;
+    // string line;
+    // string lineDate;
+    // string linePrompt;
     public void Save(Journal journal, string Filename)
     {
-        writer = new StreamWriter(Filename);
-        foreach(Entry entry in journal.entries)
+        using (StreamWriter writer = new StreamWriter(Filename))
         {
-            writer.WriteLine(entry.data());
+            foreach (Entry entry in journal.entries)
+            {
+                string data = entry.data();
+                writer.WriteLine(data);
+            }
         }
-        writer.Close();
+        // writer = new StreamWriter(Filename);
+        // foreach(Entry entry in journal.entries)
+        // {
+        //     writer.WriteLine(entry.data());
+        // }
+        // writer.Close();
     }
     public void Load(Journal journal, string Filename)
     {
-        reader = new StreamReader(Filename);
-        //Journal journal = new Journal();
-        line = reader.ReadLine();
-        while(line != null)
-        {
-            lineDate = line;
-            line = reader.ReadLine();
-            linePrompt = line;
-            line = reader.ReadLine();
-            Entry entry = new Entry(lineDate, linePrompt, line);
-            journal.entries.Add(entry);
-            line = reader.ReadLine();
-        }
-        reader.Close();
+        string[] Lines = System.IO.File.ReadAllLines(Filename);
 
-        //return journal;
+        foreach (string Line in Lines)
+        {
+            string[] parts = Line.Split(";");
+
+            Entry entry = new Entry(parts[0], parts[1], parts[2]);
+
+            journal.entries.Add(entry);
+        }
+        
+
+
+        //Load data from a file and create entries with the data
+    //     reader = new StreamReader(Filename);
+    //     line = reader.ReadLine();
+    //     while(line != null)
+    //     {
+    //         //Data is stored in 3 lines: date, prompt, then line
+    //         lineDate = line;
+    //         line = reader.ReadLine();
+    //         linePrompt = line;
+    //         line = reader.ReadLine();
+    //         Entry entry = new Entry(lineDate, linePrompt, line);
+    //         journal.entries.Add(entry);
+    //         line = reader.ReadLine();
+    //     }
+    //     reader.Close();
     }
 }
