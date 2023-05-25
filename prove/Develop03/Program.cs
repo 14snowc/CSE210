@@ -29,8 +29,7 @@ class Program
                 loop = false;
             }
         }
-
-
+        
         string[] GetStringFromFile(string Filename)
         {
             string[] Lines = System.IO.File.ReadAllLines(Filename);
