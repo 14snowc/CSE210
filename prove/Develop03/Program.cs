@@ -13,7 +13,6 @@ class Program
         bool loop = true;
         while(loop)
         {
-            
             if(scripture.GetUnhiddenWords().Count == 0)
             {
                 loop = false;
