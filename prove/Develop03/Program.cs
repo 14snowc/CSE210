@@ -20,7 +20,7 @@ class Program
 
             scripture.Display();
 
-            scripture.HideRandomWord();
+            scripture.HideRandomWord(3);
 
             Console.WriteLine();
             userInput = Console.ReadLine();
@@ -29,7 +29,7 @@ class Program
                 loop = false;
             }
         }
-        
+
         string[] GetStringFromFile(string Filename)
         {
             string[] Lines = System.IO.File.ReadAllLines(Filename);

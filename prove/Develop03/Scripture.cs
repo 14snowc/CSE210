@@ -57,13 +57,13 @@ public class Scripture
         return unhiddenWords;
     }
 
-    public void HideRandomWord()
+    public void HideRandomWord(int hideNumWords)
     {
         List<Word> unhiddenWords = GetUnhiddenWords();
     
 
         int loopNumber = 0;
-        while(loopNumber < 3 & unhiddenWords.Count > 0)
+        while(loopNumber < hideNumWords & unhiddenWords.Count > 0)
         {
             loopNumber += 1;
             int randomIndex = choice.Next(0, unhiddenWords.Count);
