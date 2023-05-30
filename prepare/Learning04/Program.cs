@@ -4,7 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        
+        Assignment Richard = new Assignment("Richard Rich Richmond", "Writing"); 
+        Console.WriteLine(Richard.GetSummary());
+
+        MathAssignment Matt = new MathAssignment("Matt Mathew Matter", "Math", "3.4", "5-9");
+        Console.WriteLine(Matt.GetHomeworkList());
+
+        WritingAssignment Wright = new WritingAssignment("Wright right write", "Writing", "Write rightly, right?");
+        Console.WriteLine(Wright.GetWritingInformation());
     }
 }
 
@@ -38,7 +45,7 @@ class MathAssignment: Assignment
 
     public string GetHomeworkList()
     {
-        return $"{GetSummary()} \n{_textbookSection} {_problems}";
+        return $"{GetSummary()} \nSection {_textbookSection} Problems {_problems}";
     }
 }
 

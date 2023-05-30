@@ -4,21 +4,52 @@ class Program
 {
     static void Main(string[] args)
     {
-       var list1 = new List<int>();
-       list1.Add(1);
-       list1.Add(2);
-       list1.Add(3);
-
-       var list2 = new List<int>();
-       list2.Remove(3);
-
-        foreach(int number in list1){
-            Console.WriteLine(number);
-        }
-        foreach(int number in list2){
-        Console.WriteLine(number);
-       }
+       
     }
 
    
+}
+
+
+class Person
+{
+    protected string _name;
+
+    public Person(string name)
+    {
+        _name = name;
+    }
+}
+
+class BYUIPerson : Person
+{
+    protected string _iNumber;
+
+    public BYUIPerson(string name, string iNumber): base(name) {
+        _iNumber = iNumber; 
+    }
+}
+
+
+class Student : BYUIPerson
+{
+    private string _major;
+
+    public Student(string name, string iNumber, string major): base(name, iNumber)
+    {
+        _major = major;
+    }
+
+
+}
+
+class Teacher : BYUIPerson
+{
+    private string _department;
+
+
+    public Teacher(string name, string iNumber, string department): base(name, iNumber)
+    {
+        _department = department;
+    }
 }

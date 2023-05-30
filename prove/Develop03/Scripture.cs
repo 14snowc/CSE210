@@ -18,7 +18,7 @@ public class Scripture
                 Word word;
                 if(verse_number)
                 {
-                    word = new Word($"\n{text}:", false);
+                    word = new Word($"\n{text}", false);
                     verse_number = false;
                 }
                 else
