@@ -1,0 +1,6 @@
+Simple;Go to school;Class = good;5;False
+Checklist;Say hello;Greeting people is very good;1;5;10;0
+Eternal;IDK;think about goals;5;3
+RewardStock;Apples;good for pie;15;False;5;4
+EternalReward;Rest;sleep in;10;False;0
+MilestoneReward;Buy a house;Nice house down the road;50;False;0
