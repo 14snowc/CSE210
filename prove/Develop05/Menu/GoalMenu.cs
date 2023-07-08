@@ -157,7 +157,7 @@ class GoalMenu: MenuBase
                 return "Load";
             }
             else if(userInputInt == 5)
-            {
+            { 
                 //Quit
                 return "Quit";
             }
