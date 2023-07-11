@@ -13,7 +13,6 @@ class RoomBase
         _isNearTrap = false;
         _isRevealed = false;
         _hasPlayer = false;
-        SetImage();
     }
 
     public virtual string ReturnRoomType()
@@ -48,7 +47,10 @@ class RoomBase
     public void Display(bool forceReveal = false)
     {
         if(_isRevealed || forceReveal)
+        {
+            SetImage();
             Console.Write(_image);
+        }
         else
             Console.Write("|   |");
     }

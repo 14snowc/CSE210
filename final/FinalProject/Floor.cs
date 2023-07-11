@@ -9,17 +9,17 @@ class Floor
     private RoomBase _playerRoom;
 
 
-    public Floor(int length, int width)
+    public Floor(List<int> options)
     {
         _choice = new Random();
         _rooms = new List<List<RoomBase>>();
         _executableRooms = new List<RoomBase>();
 
-        _floorLength = length;
-        _floorWidth = width;
+        _floorLength = options[0];
+        _floorWidth = options[1];
         var importantRooms = new List<List<int>>();
-        int trapRooms = 2;
-        int slides = 5;
+        int trapRooms = options[2];
+        int slides = options[3];
 
         GenerateImportantRoomLocation(importantRooms, 0);//Starting Room, Arrow Room, Dragon Room, Trap Rooms, Slides
         GenerateImportantRoomLocation(importantRooms, 1);
@@ -34,11 +34,11 @@ class Floor
             GenerateImportantRoomLocation(importantRooms, 4);
         }
 
-        for (int y = 0; y < length; y++)
+        for (int y = 0; y < _floorLength; y++)
         {
             _rooms.Add(new List<RoomBase>());
             var yRoom = _rooms[y];
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < _floorWidth; x++)
             {    
                 string roomType = "base";
                 for (int i = 0; i < importantRooms.Count(); i++) //Problem with the loop

@@ -4,5 +4,6 @@ class StartingRoom: RoomBase
     {
         _hasPlayer = true;
         _isRevealed = true;
+        SetImage();
     }
 }
