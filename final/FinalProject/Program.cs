@@ -4,22 +4,28 @@ class Program
 {
     static void Main(string[] args)
     {
+        var Keyboard = new Keyboard();
+        Keyboard.AddKey(char.Parse("w"), "up");
+        Keyboard.AddKey(char.Parse("a"), "left");
+        Keyboard.AddKey(char.Parse("s"), "down");
+        Keyboard.AddKey(char.Parse("d"), "right");
+        Keyboard.AddKey(char.Parse("e"), "shoot");
         var userOptions = new List<int>{
-            6,
-            6,
-            0,
+            7,
+            7,
+            2,
             5
         }; //Length, Width, Trap count, Slide count
 
-        MainMenu(userOptions);
+        MainMenu(userOptions, Keyboard);
     }
-
-    static void MainMenu(List<int> userOptions)
+    static void MainMenu(List<int> userOptions, Keyboard keyboard)
     {
         var menuItems = new List<string>{
             "Play",
             "How to play",
-            "Options",
+            "Game Settings",
+            "Controls",
             "Quit"
         };
         while(true)
@@ -30,7 +36,7 @@ class Program
             if(userChoice == 0)
             {
                 //Play
-                GameplayLoop(userOptions);
+                GameplayLoop(userOptions, keyboard);
             }
             else if(userChoice == 1)
             {
@@ -43,6 +49,11 @@ class Program
                 Options(userOptions);
             }
             else if(userChoice == 3)
+            {
+                //Controls
+                Controls(keyboard);
+            }
+            else if(userChoice == 4)
             {
                 //Quit
                 return;
@@ -152,23 +163,66 @@ class Program
             }
         }    
     }
-
-    static void GameplayLoop(List<int> Options)
+    static void Controls(Keyboard keyboard)
+    {
+        List<string> options = new List<string>{
+            "up",
+            "down",
+            "left",
+            "right",
+            "shoot",
+            "unbind"
+        };
+        while(true)
+        {
+            Console.Clear();
+            keyboard.ListKeys();
+            Console.Write("Type \"yes\" to modify the controls ");
+            string userInput = Console.ReadLine().ToLower();
+            if(userInput == "yes")
+            {
+                Console.Write("Enter the key you wish to modify: ");
+                char userKey = Console.ReadKey().KeyChar;
+                
+                int line_number = 1;
+                foreach(var option in options)
+                {
+                    Console.WriteLine($"{line_number}) {option}");
+                    line_number ++;
+                }
+                Console.Write($"Enter the function number to bind to {userKey}");
+                try
+                {
+                    int userSelection = int.Parse(Console.ReadLine()) -1;
+                    keyboard.AddKey(userKey, options[userSelection]);
+                }
+                catch
+                {
+                    Console.Write("Invalid input");
+                }
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+            else
+                return;
+        }
+    }
+    static void GameplayLoop(List<int> Options, Keyboard keyboard)
     {
         var floor = new Floor(Options);
         bool isPlaying = true;
-        bool canShoot = false;
+        bool canShoot = true;
         string roomStatus;
         var userShotGuess = new List<int>(); 
         while(isPlaying)
         {
-            string message = "Type a direction(n, e, s, w) to move. \n ";
+            string message;
             if(canShoot)
-                message += "Type \"shoot\" when you think you know where the dragon is. ";
+                message = "Take a shot when you think you know where the dragon is. ";
             else
-                message += "Find the arrow and take a shot at the dragon.";
-            floor.displayRooms();
-            roomStatus = floor.MovePlayer(GetUserActionInt(message, userShotGuess, canShoot));
+                message = "Find the arrow and take a shot at the dragon.";
+            floor.displayRooms(true);
+            roomStatus = floor.MovePlayer(GetUserActionInt(message, userShotGuess, canShoot, keyboard));
             if(roomStatus == "trap")
             {
                 floor.displayRooms();
@@ -185,7 +239,7 @@ class Program
                 Thread.Sleep(2000);
                 isPlaying = false;
             }
-            else if(roomStatus == "arrow")
+            else if(roomStatus == "arrow" && !canShoot)
             {
                 Console.Clear();
                 Console.WriteLine("You found the Arrow.\n You can now take a shot at the dragon, but dont miss. ");
@@ -206,29 +260,29 @@ class Program
             }
         }
         floor.displayRooms(true);
-        Console.ReadLine();
+        Console.ReadKey();
     }
-    static int GetUserActionInt(string message, List<int> userShoot, bool canShoot)
+    static int GetUserActionInt(string message, List<int> userShoot, bool canShoot, Keyboard keyboard)
     {
         string  userInput;
         while(true)
         {
             Console.Write(message);
-            userInput = Console.ReadLine().ToLower();
+            userInput = keyboard.GetKeyPress();
 
-            if(userInput == "north" || userInput == "n")
+            if(userInput == "up")
             {
                 return 0;
             }
-            else if(userInput == "east" || userInput == "e")
+            else if(userInput == "right")
             {
                 return 1;
             }
-            else if(userInput == "south" || userInput == "s")
+            else if(userInput == "down")
             {
                 return 2;
             }
-            else if(userInput == "west" || userInput == "w")
+            else if(userInput == "left")
             {
                 return 3;
             }

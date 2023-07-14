@@ -188,8 +188,37 @@ class Floor
 
     private string userShotGuess()
     {
-        Console.WriteLine("Recalling all of your archery training from your past teacher, you draw your bow.\n Consentrate on where the dragon is...");
+        Console.Clear();
+        string message = "Recalling all of your archery training from your past teacher, you draw your bow.\n Consentrate on where the dragon is...";
+        Console.WriteLine(message);
+        int rowNumber = 1;
+        foreach(var rowRoom in _rooms)
+        {
+            Console.Write($"{rowNumber}) ");
+            foreach(var room in rowRoom)
+            {
+                room.Display();
+            }
+            Console.WriteLine();
+            rowNumber ++;
+        }
         int userRowGuess = GetUserInputInt("What row is the dragon in? ");
+
+        Console.Clear();
+        Console.WriteLine(message);
+        for (int coulumnNumber = 1; coulumnNumber <= _rooms[0].Count(); coulumnNumber++)
+        {
+            Console.Write($"  {coulumnNumber}  ");
+        }
+        Console.WriteLine();
+        foreach(var rowRoom in _rooms)
+        {
+            foreach(var room in rowRoom)
+            {
+                room.Display();
+            }
+            Console.WriteLine();
+        }
         int userColumnGuess = GetUserInputInt("What column is the dragon in? ");
 
         bool userGuessConferm = GetUserInputBoolYN($"Is the dragon in row {userRowGuess}, column {userColumnGuess}? ");
@@ -198,16 +227,15 @@ class Floor
         {
             Console.Clear();
             Console.WriteLine($"With all the might you could muster you nock the enchanted arrow and pull back.\n Then to the arrow you wisper, \"Fly to room {userRowGuess}, {userColumnGuess} and slay the beast there,\" and release the arrow.");
-            Console.Clear();
             for(int i = 0; i < 4; i++)
             {
                 Console.Write(".");
                 Thread.Sleep(1000);
             }
-            if(_rooms[userRowGuess -1][userColumnGuess -1].Equals(typeof(DragonRoom)))
+            if(_rooms[userRowGuess -1][userColumnGuess -1].GetType() == typeof(DragonRoom))
                 return "hit";
             else
-                return "missed";
+                return "miss";
         }
         else
             return "safe";
